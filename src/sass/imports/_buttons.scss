@@ -1,0 +1,85 @@
+.button {
+  -ms-flex-align: center;
+  align-items: center;
+  background: 0;
+  border: 2px solid $color-accent;
+  border-radius: 0;
+  box-sizing: border-box;
+  color: $color-accent;
+  display: inline-flex;
+  font-size: 16px;
+  font-weight: bold;
+  -ms-flex-pack: center;
+  justify-content: center;
+  line-height: 1.2;
+  padding: 0.7125em 1.875em;
+  text-align: center;
+  text-decoration: none;
+  -webkit-transition: opacity .3s;
+  transition: opacity .3s;
+  white-space: nowrap;
+
+  .font-fraunces & {
+    font-weight: 500;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    opacity: .6;
+    outline: 0;
+  }
+
+  &--primary {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 50%, $color-accent 50%);
+    background-color: transparent;
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    background-size: 204% 100%;
+    border: 2px solid $color-accent;
+    color:#fff;
+    -webkit-transition: background-position .3s, color .3s;
+    transition: background-position .3s, color .3s;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: $color-accent;
+      background-position: left bottom;
+      opacity: 1;
+    }
+  }
+
+  &--icon {
+    border: 0;
+    color: inherit;
+    font-size: 1em;
+    padding: 0.25em 0;
+  }
+}
+
+.button-group {
+  -ms-flex-align: center;
+  align-items: center;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+
+  a {
+    margin: 0 1em 1em 0;
+
+    &:not(.button) {
+      border-bottom: 1px solid rgba($color-accent, .3);
+      color: $color-accent;
+      line-height: 1.4;
+      -webkit-transition: opacity .3s;
+      transition: opacity .3s;
+
+      &:hover,
+      &:focus {
+        opacity: .6;
+      }
+    }
+  }
+}

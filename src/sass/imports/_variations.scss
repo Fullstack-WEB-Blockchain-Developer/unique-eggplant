@@ -1,0 +1,137 @@
+// Alternative palettes and accent colors
+.palette-dark {
+  background: $color-gray-900;
+  color: $color-gray-100;
+
+  hr,
+  th,
+  td,
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="search"],
+  input[type="url"],
+  select,
+  textarea,
+  .site-header,
+  .site-footer {
+    border-color: $color-gray-700;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  th,
+  label,
+  blockquote,
+  .navbar__title {
+    color: #fff;
+  }
+
+  .text-block pre,
+  .section__bg,
+  .section--form form {
+    background: $color-gray-800;
+  }
+
+  .button--icon,
+  figcaption,
+  caption,
+  .card__subtitle,
+  .testimonial__position,
+  .post__subtitle,
+  .post__meta,
+  .post-card__meta,
+  .project-card__subtitle,
+  .project__subtitle,
+  .section__subtitle {
+    color: $color-gray-400;
+  }
+
+  .form-select-wrap:before {
+    border-color: $color-gray-400;
+  }
+
+  .site-footer a:not(.button) {
+    border-bottom-color: rgba($color-gray-100, .4);
+  }
+
+  ::-webkit-input-placeholder {
+    color: $color-gray-500;
+  }
+  
+  ::-moz-placeholder {
+    color: $color-gray-500;
+    opacity: 1;
+  }
+  
+  :-ms-input-placeholder {
+    color: $color-gray-500;
+  }
+  
+  ::-ms-input-placeholder {
+    color: $color-gray-500;
+  }
+  
+  ::placeholder {
+    color: $color-gray-500;
+  }
+
+  @media only screen and (min-width: 768px) {
+    .project-card__header {
+      background-color: $color-gray-800;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    .site-header:after {
+      background: rgba(0,0,0,.8);
+    }
+
+    .navbar__menu-container {
+      background: $color-gray-900;
+    }
+  }
+}
+
+@each $accent in map-keys($accent-colors) {
+  .accent-#{$accent} {
+    .button,
+    .line-top:before {
+      border-color: map-get($accent-colors, $accent);
+    }
+
+    .button--primary,
+    .project-card__button {
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 50%, map-get($accent-colors, $accent) 50%);
+      border-color: map-get($accent-colors, $accent);
+    }
+
+    .button--primary:hover,
+    .button--primary:focus,
+    .button--primary:active,
+    .project-card__view-all:hover .project-card__button,
+    .project-card__view-all:focus .project-card__button,
+    .menu__item--current,
+    .menu a:not(.button):hover,
+    blockquote:before {
+      color: map-get($accent-colors, $accent);
+    }
+
+    .form-group .animate-border {
+      background: map-get($accent-colors, $accent);
+    }
+
+    .button-group a:not(.button),
+    .card__body a:not(.button),
+    .text-block a:not(.button) {
+      border-bottom-color: rgba(map-get($accent-colors, $accent), .3);
+      color: map-get($accent-colors, $accent);
+    }
+  }
+}

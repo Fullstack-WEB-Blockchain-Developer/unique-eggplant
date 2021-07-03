@@ -1,0 +1,164 @@
+// Text for screen readers
+.screen-reader-text {
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: polygon(0px 0px, 0px 0px, 0px 0px, 0px 0px);
+  height: 1px;
+  overflow: hidden;
+  position: absolute !important;
+  width: 1px;
+  word-wrap: normal !important;
+}
+
+// Clearing
+.clear {
+  &:after {
+    clear: both;
+  }
+
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+}
+
+// Top line decoration
+.line-top {
+  position: relative;
+
+  &:before {
+    border-left: 45px solid $color-accent;
+    content: "";
+    display: block;
+    height: 3px;
+    margin-bottom: 0.83333rem;
+  }
+}
+
+// Grid
+.grid {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-left: -$grid-gap / 2;
+  margin-right: -$grid-gap / 2;
+}
+
+.cell {
+  box-sizing: border-box;
+  padding-left: $grid-gap / 2;
+  padding-right: $grid-gap / 2;
+  position: relative;
+  width: 100%;
+
+  @media only screen and (min-width: 601px) {
+    .grid--col-two & {
+      -ms-flex: 0 0 50%;
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    .grid--col-three & {
+      -ms-flex: 0 0 33.333%;
+      flex: 0 0 33.333%;
+      max-width: 33.333%;
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .grid {
+    margin-left: -$container-padding;
+    margin-right: -$container-padding;
+  }
+  
+  .cell {
+    padding-left: $container-padding;
+    padding-right: $container-padding;
+  }
+}
+
+// Text block
+.text-block {
+  a {
+    &:not(.button) {
+      border-bottom: 1px solid rgba($color-accent, .4);
+      color: $color-accent;
+
+      &:hover,
+      &:focus {
+        opacity: .6;
+      }
+    }
+  }
+
+  blockquote {
+    font-size: 1.33333em;
+    line-height: 1.3;
+    padding: 0.75em 0 0 2.5em;
+
+    &:not(:first-child) {
+      margin-top: 1.5em;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 1.5em;
+    }
+
+    &:before {
+      font-size: 5em;
+    }
+
+    @media only screen and (min-width: 601px) {
+      font-size: 1.66667em;
+    }
+  }
+
+  pre {
+    background: $color-gray-50;
+    font-size: 0.88889em;
+    line-height: 1.5;
+    padding: 1.5em;
+
+    &:not(:first-child) {
+      margin-top: 2.5em;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 2.5em;
+    }
+  }
+
+  hr,
+  iframe[src*="vimeo.com"],
+  iframe[src*="youtube.com"],
+  :not(.responsive-table) > table,
+  .responsive-table {
+    &:not(:first-child) {
+      margin-top: 2.5em;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 2.5em;
+    }
+  }
+}
+
+// Image block
+.image-block {
+  margin-bottom: 2.5em;
+  margin-top: 2.5em;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &__caption {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: $container-md;
+  }
+}

@@ -1,0 +1,59 @@
+// Fonts
+$fonts: (
+  fraunces: ("Fraunces", serif),
+  karla: ("Karla", sans-serif),
+  system-sans: (-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif)
+);
+
+// Colors
+$color-gray-50:  #f6f7f9 !default;
+$color-gray-100: #e5e7eb !default;
+$color-gray-200: #d1d5db !default;
+$color-gray-300: #868f9d !default;
+$color-gray-400: #6b7280 !default;
+$color-gray-500: #4b5563 !default;
+$color-gray-600: #2f3845 !default;
+$color-gray-700: #1f2937 !default;
+$color-gray-800: #18202a !default;
+$color-gray-900: #121920 !default;
+$color-accent:   #d8195e !default;
+
+// Alternative accent colors
+$accent-colors: (
+  blue:   #0c8aea,
+  green:  #10b981,
+  red:    #fa292a,
+  violet: #7c43a8,
+  yellow: #ed9700
+);
+
+// Container max width
+$container-lg: 1200px !default;
+$container-md: 780px !default;
+
+// Container padding
+$container-padding: 3vw !default;
+
+// Grid gap
+$grid-gap: 1.66667rem !default;
+
+@import "imports/reset";
+@import "imports/general";
+@import "imports/helpers";
+@import "imports/buttons";
+@import "imports/icons";
+@import "imports/forms";
+@import "imports/tables";
+@import "imports/card";
+@import "imports/testimonial";
+@import "imports/structure";
+@import "imports/header";
+@import "imports/post";
+@import "imports/post-feed";
+@import "imports/portfolio-feed";
+@import "imports/project";
+@import "imports/hero";
+@import "imports/section";
+@import "imports/footer";
+@import "imports/variations";
+@import "imports/banner";

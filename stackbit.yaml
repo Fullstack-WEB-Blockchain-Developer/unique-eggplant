@@ -1,0 +1,824 @@
+stackbitVersion: ~0.3.0
+ssgName: nextjs
+cmsName: git
+buildCommand: npm run build
+publishDir: out
+assets:
+  referenceType: static
+  staticDir: public
+  uploadDir: images
+  publicPath: /
+dataDir: content/data
+pagesDir: content/pages
+pageLayoutKey: layout
+logicFields:
+  - portfolio_section.projects_number
+  - posts_section.posts_number
+models:
+  config:
+    type: data
+    label: Site Configuration
+    fields:
+      - type: string
+        name: title
+        label: Title
+        description: Site title
+        required: true
+      - type: string
+        name: path_prefix
+        label: Base URL
+        description: >-
+          The base URL of this site. Useful for sites hosted under specific
+          path, e.g.: https://www.example.com/my-site/
+        required: true
+        hidden: true
+      - type: string
+        name: domain
+        label: Domain
+        description: >-
+          The domain of your site, including the protocol, e.g.
+          https://mysite.com
+      - type: image
+        name: favicon
+        label: Favicon
+        description: A square icon that represents your website
+      - type: enum
+        name: color_scheme
+        label: Color scheme
+        description: The color scheme used for the site
+        options:
+          - light
+          - dark
+        default: light
+        required: true
+      - type: enum
+        name: accent_color
+        label: Accent color
+        description: The accent color of the site
+        options:
+          - pink
+          - green
+          - blue
+          - violet
+          - yellow
+        default: pink
+        required: true
+      - type: enum
+        name: base_font
+        label: Font
+        options:
+          - fraunces
+          - karla
+          - system-sans
+        default: fraunces
+        required: true
+      - type: model
+        name: header
+        label: Header Configuration
+        models:
+          - header
+      - type: model
+        name: footer
+        label: Footer Configuration
+        models:
+          - footer
+    file: config.json
+  header:
+    type: object
+    label: Header Configuration
+    labelField: title
+    fields:
+      - type: string
+        name: title
+        label: Header title
+        description: The title displayed in the header if no logo image added
+      - type: image
+        name: logo
+        label: Logo
+        description: The logo image displayed in the header
+      - type: string
+        name: logo_alt
+        label: Logo alt text
+        description: The alt text of the logo image
+      - type: boolean
+        name: has_nav
+        label: Enable navigation menu
+        description: Display the navigation menu bar in the header
+        default: true
+      - type: list
+        name: nav_links
+        label: Navigation links
+        description: A list of navigation links
+        items:
+          type: model
+          models:
+            - action
+  footer:
+    type: object
+    label: Footer Configuration
+    labelField: content
+    fields:
+      - type: string
+        name: content
+        label: Footer content
+        description: The copyright text displayed in the footer
+      - type: list
+        name: links
+        label: Links
+        description: A list of links displayed in the footer
+        items:
+          type: model
+          models:
+            - action
+      - type: boolean
+        name: has_social
+        label: Enable social links
+        description: Display social links in the footer
+        default: true
+      - type: list
+        name: social_links
+        label: Social links
+        description: A list of social links in the footer
+        items:
+          type: model
+          models:
+            - action
+  advanced:
+    type: page
+    label: Advanced Page
+    layout: advanced
+    hideContent: true
+    fields:
+      - type: string
+        name: title
+        label: Title
+        description: The title of the page
+        required: true
+      - type: boolean
+        name: hide_title
+        label: Hide page title
+        default: true
+      - type: list
+        name: sections
+        label: Sections
+        description: Page sections
+        items:
+          type: model
+          models:
+            - hero_section
+            - content_section
+            - cta_section
+            - grid_section
+            - portfolio_section
+            - posts_section
+            - testimonials_section
+            - form_section
+      - type: model
+        name: seo
+        models:
+          - stackbit_page_meta
+  blog:
+    type: page
+    urlPath: /blog
+    label: Blog
+    layout: blog
+    file: blog/index.md
+    hideContent: true
+    singleInstance: true
+    fields:
+      - type: string
+        name: title
+        label: Title
+        description: The title of the page
+        required: true
+      - type: string
+        name: subtitle
+        label: Subtitle
+        description: The text shown just below the page title
+      - type: boolean
+        name: hide_title
+        label: Hide page title and subtitle
+        default: false
+      - type: enum
+        name: col_number
+        label: Columns
+        description: The number of columns in the post grid
+        options:
+          - two
+          - three
+        default: three
+        required: true
+      - type: model
+        name: seo
+        models:
+          - stackbit_page_meta
+  portfolio:
+    type: page
+    urlPath: /portfolio
+    label: Portfolio
+    layout: portfolio
+    file: portfolio/index.md
+    hideContent: true
+    singleInstance: true
+    fields:
+      - type: string
+        name: title
+        label: Title
+        description: The title of the page
+        required: true
+      - type: string
+        name: subtitle
+        label: Subtitle
+        description: The text shown just below the page title
+      - type: boolean
+        name: hide_title
+        label: Hide page title and subtitle
+        default: false
+      - type: enum
+        name: layout_style
+        label: Layout style
+        description: The style of the portfolio layout
+        options:
+          - mosaic
+          - tiles
+        default: mosaic
+      - type: model
+        name: seo
+        models:
+          - stackbit_page_meta
+  page:
+    type: page
+    label: Page
+    layout: page
+    exclude:
+      - blog/**
+      - portfolio/**
+    fields:
+      - type: string
+        name: title
+        label: Title
+        description: The title of the page
+        required: true
+      - type: string
+        name: subtitle
+        label: Subtitle
+        description: The text shown just below the page title
+      - type: image
+        name: image
+        label: Image
+        description: The image shown below the page title and subtitle
+      - type: string
+        name: image_alt
+        label: Image alt text
+        description: The alt text of the image
+      - type: model
+        name: seo
+        models:
+          - stackbit_page_meta
+  post:
+    type: page
+    urlPath: '/blog/{slug}'
+    label: Post
+    layout: post
+    folder: blog
+    fields:
+      - type: string
+        name: title
+        label: Title
+        description: The title of the post
+        required: true
+      - type: string
+        name: subtitle
+        label: Subtitle
+        description: The text shown just below the post title
+      - type: date
+        name: date
+        label: Date
+        required: true
+      - type: image
+        name: thumb_image
+        label: Thumbnail image
+        description: The image shown in the post grid
+      - type: string
+        name: thumb_image_alt
+        label: Thumbnail image alt text
+        description: The alt text of the thumbnail image
+      - type: image
+        name: image
+        label: Image
+        description: The image shown in the single post
+      - type: string
+        name: image_alt
+        label: Image alt text
+        description: The alt text of the single post image
+      - type: string
+        name: excerpt
+        label: Excerpt
+        description: The excerpt of the post displayed in the post grid
+      - type: model
+        name: seo
+        models:
+          - stackbit_page_meta
+  project:
+    type: page
+    urlPath: '/portfolio/{slug}'
+    label: Project
+    layout: project
+    folder: portfolio
+    hideContent: true
+    fields:
+      - type: string
+        name: title
+        label: Title
+        description: The title of the project
+        required: true
+      - type: string
+        name: subtitle
+        label: Subtitle
+        description: The text shown just below the project title
+      - type: date
+        name: date
+        label: Date
+        required: true
+      - type: image
+        name: thumb_image
+        label: Thumbnail image
+        description: The image shown in the portfolio grid
+      - type: string
+        name: thumb_image_alt
+        label: Thumbnail image alt text
+        description: The alt text of the thumbnail image
+      - type: list
+        name: sections
+        label: Sections
+        description: Project sections
+        items:
+          type: model
+          models:
+            - image_section
+            - text_section
+      - type: model
+        name: seo
+        models:
+          - stackbit_page_meta
+  section:
+    type: object
+    label: Section
+    labelField: title
+    fields:
+      - type: string
+        name: section_id
+        label: ID
+        description: 'A unique identifier of the section, must not contain whitespace'
+      - type: string
+        name: title
+        label: Title
+        description: The title of the section
+  hero_section:
+    type: object
+    label: Hero Section
+    extends:
+      - section
+    fields:
+      - type: markdown
+        name: content
+        label: Content
+        description: The text content of the section
+      - type: list
+        name: actions
+        label: Action buttons
+        items:
+          type: model
+          models:
+            - action
+  content_section:
+    type: object
+    label: Content Section
+    extends:
+      - section
+    fields:
+      - type: string
+        name: subtitle
+        label: Subtitle
+        description: The subtitle of the section
+      - type: image
+        name: image
+        label: Image
+        description: The image of the section
+      - type: string
+        name: image_alt
+        label: Image alt text
+        description: The alt text of the section image
+      - type: markdown
+        name: content
+        label: Content
+        description: The text content of the section
+  cta_section:
+    type: object
+    label: CTA Section
+    extends:
+      - section
+    fields:
+      - type: markdown
+        name: content
+        label: Content
+        description: The text content of the section
+      - type: list
+        name: actions
+        label: Action buttons
+        items:
+          type: model
+          models:
+            - action
+      - type: image
+        name: image
+        label: Image
+        description: The image of the section
+      - type: string
+        name: image_alt
+        label: Image alt text
+        description: The alt text of the section image
+      - type: enum
+        name: bg_color
+        label: Background color
+        description: The background color of the section
+        options:
+          - none
+          - light
+        default: none
+        required: true
+  grid_section:
+    type: object
+    label: Grid Section
+    extends:
+      - section
+    fields:
+      - type: string
+        name: subtitle
+        label: Subtitle
+        description: The subtitle of the section
+      - type: enum
+        name: col_number
+        label: Columns
+        description: The number of columns in the grid
+        options:
+          - two
+          - three
+        default: three
+        required: true
+      - type: list
+        name: grid_items
+        label: Grid items
+        items:
+          type: model
+          models:
+            - grid_item
+  grid_item:
+    type: object
+    label: Grid item
+    labelField: title
+    fields:
+      - type: string
+        name: title
+        label: Title
+        description: The title of the grid item
+      - type: string
+        name: subtitle
+        label: Subtitle
+        description: The subtitle of the grid item
+      - type: image
+        name: image
+        label: Image
+        description: The image of the grid item
+      - type: string
+        name: image_alt
+        label: Image alt text
+        description: The alt text of the grid image
+      - type: markdown
+        name: content
+        label: Content
+        description: The text content of the grid item
+      - type: list
+        name: actions
+        label: Action buttons
+        items:
+          type: model
+          models:
+            - action
+  portfolio_section:
+    type: object
+    label: Portfolio Section
+    extends:
+      - section
+    fields:
+      - type: string
+        name: subtitle
+        label: Subtitle
+        description: The subtitle of the section
+      - type: enum
+        name: layout_style
+        label: Layout Style
+        description: The layout style of the projects section
+        options:
+          - mosaic
+          - tiles
+        default: mosaic
+        required: true
+      - type: number
+        name: projects_number
+        label: Number of projects to display
+        required: true
+      - type: string
+        name: view_all_label
+        label: All projects button label
+        description: The text displayed inside the button
+      - type: string
+        name: view_all_url
+        label: All projects button URL
+        default: '#'
+  posts_section:
+    type: object
+    label: Posts Section
+    extends:
+      - section
+    fields:
+      - type: string
+        name: subtitle
+        label: Subtitle
+        description: The subtitle of the section
+      - type: number
+        name: posts_number
+        label: The number of posts to display
+        required: true
+        default: 3
+      - type: enum
+        name: col_number
+        label: Columns
+        description: The number of columns in the post grid
+        options:
+          - two
+          - three
+        default: three
+        required: true
+      - type: list
+        name: actions
+        label: Action buttons
+        items:
+          type: model
+          models:
+            - action
+  testimonials_section:
+    type: object
+    label: Testimonials Section
+    extends:
+      - section
+    fields:
+      - type: string
+        name: subtitle
+        label: Subtitle
+        description: The subtitle of the section
+      - type: list
+        name: testimonials
+        label: Testimonials
+        items:
+          type: model
+          models:
+            - testimonial
+  testimonial:
+    type: object
+    label: Testimonial
+    labelField: author
+    fields:
+      - type: string
+        name: author
+        label: Author
+        description: The author of the testimonial
+        required: true
+      - type: string
+        name: position
+        label: Author position
+        description: The position of the testimonial author
+        required: true
+      - type: image
+        name: avatar
+        label: Author image
+        description: The image of the testimonial author
+      - type: string
+        name: avatar_alt
+        label: Author image alt text
+        description: The alt text of the testimonial author image
+      - type: string
+        name: content
+        label: Content
+        description: The text content of the testimonial
+        required: true
+  form_section:
+    type: object
+    label: Form Section
+    extends:
+      - section
+    fields:
+      - type: string
+        name: subtitle
+        label: Subtitle
+        description: The subtitle of the section
+      - type: markdown
+        name: content
+        label: Content
+        description: The text content of the section
+      - type: string
+        name: form_id
+        label: Form ID
+        description: 'A unique identifier of the form, must not contain whitespace'
+        required: true
+      - type: string
+        name: form_action
+        label: Form action
+        description: >-
+          The path of your custom "success" page, if you want to replace the
+          default success message
+      - type: list
+        name: form_fields
+        label: Form fields
+        items:
+          type: model
+          models:
+            - form_field
+      - type: boolean
+        name: hide_labels
+        label: Hide form field labels
+        default: false
+      - type: string
+        name: submit_label
+        label: Submit button label
+        required: true
+  form_field:
+    type: object
+    label: Form field
+    labelField: name
+    fields:
+      - type: enum
+        name: input_type
+        label: Type
+        options:
+          - text
+          - textarea
+          - email
+          - tel
+          - number
+          - checkbox
+          - select
+        description: Type of the form field
+        required: true
+      - type: string
+        name: name
+        label: Name
+        description: 'The name of the field, submitted with the form'
+        required: true
+      - type: string
+        name: label
+        label: Label
+        description: 'The caption of the field, shown above the field input'
+      - type: string
+        name: default_value
+        label: Placeholder or default value
+        description: >-
+          The placeholder for textual field types or default option for select
+          field
+      - type: list
+        name: options
+        label: Options
+        description: A list of options for select field
+      - type: boolean
+        name: is_required
+        label: Make the field required
+        default: false
+  text_section:
+    type: object
+    label: Text Section
+    fields:
+      - type: markdown
+        name: content
+        label: Content
+        description: The text content of the section
+  image_section:
+    type: object
+    label: Image Section
+    fields:
+      - type: image
+        name: image
+        label: Image
+        description: The image of the section
+      - type: string
+        name: image_alt
+        label: Image Alt Text
+        description: The alt text of the section image
+      - type: string
+        name: caption
+        label: Caption
+        description: The caption of the image
+      - type: enum
+        name: width
+        label: Width
+        description: The width of the image
+        options:
+          - regular
+          - wide
+        default: regular
+        required: true
+  action:
+    type: object
+    label: Action
+    labelField: label
+    fields:
+      - type: string
+        name: label
+        label: Label
+        required: true
+      - type: string
+        name: url
+        label: URL
+        required: true
+        default: '#'
+      - type: enum
+        name: style
+        label: Style
+        options:
+          - link
+          - button
+          - icon
+        default: link
+        required: true
+      - type: enum
+        name: icon
+        label: Icon
+        options:
+          - dribbble
+          - facebook
+          - github
+          - instagram
+          - linkedin
+          - pinterest
+          - twitter
+          - vimeo
+          - youtube
+        default: dribbble
+      - type: boolean
+        name: new_window
+        label: Make the link open a new tab/window
+        default: false
+      - type: boolean
+        name: no_follow
+        label: No follow
+        default: false
+        description: Add rel="nofollow" attribute to the link
+  stackbit_page_meta:
+    type: object
+    label: Page meta data
+    fields:
+      - type: string
+        name: title
+        label: Title
+        description: The page title that goes into the <title> tag
+        default: ''
+      - type: string
+        name: description
+        label: Description
+        description: The page description that goes into the <meta name="description"> tag
+        default: ''
+      - type: list
+        name: robots
+        label: Robots
+        description: The items that go into the <meta name="robots"> tag
+        items:
+          type: enum
+          options:
+            - all
+            - index
+            - follow
+            - noindex
+            - nofollow
+            - noimageindex
+            - notranslate
+            - none
+      - type: list
+        name: extra
+        label: Extra
+        description: >-
+          Additional definition for specific meta tags such as open-graph,
+          twitter, etc.
+        items:
+          type: object
+          labelField: name
+          fields:
+            - type: string
+              name: name
+              default: ''
+            - type: string
+              name: value
+              default: ''
+            - type: string
+              name: keyName
+              default: name
+            - type: boolean
+              name: relativeUrl

@@ -1,0 +1,50 @@
+table {
+  border: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0;
+  max-width: 100%;
+  text-align: left;
+  width: 100%;
+}
+
+caption {
+  color: $color-gray-300;
+  font-size: 0.88889em;
+  font-style: normal;
+  margin-bottom: 0.5em;
+  text-align: left;
+}
+
+th,
+td {
+  border-bottom: 1px solid $color-gray-100;
+  padding: 0.5em;
+}
+
+th {
+  font-weight: bold;
+
+  .font-fraunces & {
+    font-weight: 500;
+  }
+}
+
+:not(.responsive-table) > table {
+  margin: 1em 0;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.responsive-table {
+  display: block;
+  margin: 1em 0;
+  overflow-x: auto;
+  width: 100%;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}

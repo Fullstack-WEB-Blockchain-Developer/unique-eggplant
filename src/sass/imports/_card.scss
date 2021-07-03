@@ -1,0 +1,43 @@
+.card {
+  &__title {
+    font-size: 1.33333em;
+    margin: 0;
+  }
+
+  &__subtitle {
+    color: $color-gray-300;
+    font-style: italic;
+  }
+
+  &__image {
+    margin-bottom: 1.11111em;
+
+    .grid--col-two & {
+      max-width: 585px;
+    }
+
+    .grid--col-three & {
+      max-width: 380px;
+    }
+  }
+
+  &__body {
+    line-height: 1.5;
+
+    &:not(:first-child) {
+      margin-top: 1em;
+    }
+
+    a {
+      &:not(.button) {
+        border-bottom: 1px solid rgba($color-accent, .3);
+        color: $color-accent;
+  
+        &:hover,
+        &:focus {
+          opacity: .6;
+        }
+      }
+    }
+  }
+}
